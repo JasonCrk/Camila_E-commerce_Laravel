@@ -12,6 +12,9 @@ class OrderItem extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'order_items';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function order(): BelongsTo
     {

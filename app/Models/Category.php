@@ -13,6 +13,9 @@ class Category extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'categories';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function subCategories(): HasMany
     {

@@ -13,6 +13,9 @@ class Order extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'orders';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function user(): BelongsTo
     {

@@ -12,6 +12,9 @@ class Shipping extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'shippings';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function orders(): HasMany
     {

@@ -12,6 +12,9 @@ class Manufacture extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'manufactures';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function products(): HasMany
     {

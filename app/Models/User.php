@@ -6,17 +6,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
 use Laravel\Sanctum\HasApiTokens;
+
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, HasRoles;
 
     protected $table = 'users';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'username',
@@ -25,7 +32,6 @@ class User extends Authenticatable
         'phone_number',
         'email',
         'password',
-        'role_id'
     ];
 
     protected $hidden = [
@@ -36,19 +42,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function profile(): BelongsTo
+    public function profile(): HasOne
     {
-        return $this->belongsTo(Profile::class);
+        return $this->hasOne(Profile::class);
     }
 
-    public function cart(): BelongsTo
+    public function cart(): HasOne
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasOne(Cart::class);
     }
 
-    public function whishList(): BelongsTo
+    public function whishList(): HasOne
     {
-        return $this->belongsTo(WhishList::class);
+        return $this->hasOne(WhishList::class);
     }
 
     public function reviews(): HasMany

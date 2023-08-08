@@ -13,6 +13,9 @@ class VariantImage extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'variant_images';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function variant(): BelongsTo
     {

@@ -12,6 +12,9 @@ class CartItem extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'cart_items';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'amount',

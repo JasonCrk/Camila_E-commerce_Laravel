@@ -12,6 +12,9 @@ class Review extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'reviews';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function user(): BelongsTo
     {

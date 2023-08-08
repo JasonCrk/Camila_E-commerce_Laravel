@@ -12,6 +12,9 @@ class Region extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'regions';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function cities(): HasMany
     {

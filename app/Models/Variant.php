@@ -13,6 +13,9 @@ class Variant extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'variants';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'product_id',

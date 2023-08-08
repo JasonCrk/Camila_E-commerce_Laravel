@@ -12,6 +12,9 @@ class AboutProduct extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'about_products';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     protected $fillable = [
         'position',

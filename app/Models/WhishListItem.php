@@ -12,6 +12,9 @@ class WhishListItem extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'whish_list_items';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function whishList(): BelongsTo
     {

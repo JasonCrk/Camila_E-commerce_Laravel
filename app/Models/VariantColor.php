@@ -12,6 +12,9 @@ class VariantColor extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'variant_colors';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function images(): HasMany
     {

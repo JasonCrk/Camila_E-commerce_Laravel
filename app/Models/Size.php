@@ -12,6 +12,9 @@ class Size extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'sizes';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function relations(): HasMany
     {

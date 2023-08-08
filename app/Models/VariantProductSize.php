@@ -12,6 +12,9 @@ class VariantProductSize extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'variant_product_size';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function product(): BelongsTo
     {

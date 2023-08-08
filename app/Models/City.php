@@ -13,6 +13,9 @@ class City extends Model
     use HasFactory, HasUuids;
 
     protected $table = 'cities';
+    protected $keyType = 'string';
+
+    public $incrementing = false;
 
     public function region(): BelongsTo
     {
