@@ -2,14 +2,18 @@
 
 namespace Tests\Feature\auth;
 
-use App\Mail\SuccessfulUserRegistrationEmail;
 use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
+
 use Symfony\Component\HttpFoundation\Response;
 
+use Database\Seeders\RoleSeeder;
+
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
+
+use App\Mail\SuccessfulUserRegistrationEmail;
 
 class RegisterTest extends TestCase
 {
@@ -21,8 +25,8 @@ class RegisterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(RoleSeeder::class);
 
-        $this->seed();
         $this->url = route('auth.register');
         $this->password = fake()->password(8);
     }

@@ -2,11 +2,14 @@
 
 namespace Tests\Feature\auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+
+use App\Models\User;
+
+use Database\Seeders\RoleSeeder;
 
 class LoginTest extends TestCase
 {
@@ -19,7 +22,7 @@ class LoginTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed();
+        $this->seed(RoleSeeder::class);
 
         $this->url = route('auth.login');
 
