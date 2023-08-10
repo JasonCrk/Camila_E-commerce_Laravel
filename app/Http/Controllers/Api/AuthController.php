@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
@@ -14,10 +15,14 @@ use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 
 use App\Mail\SuccessfulUserRegistrationEmail;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['register', 'login']);
+    }
+
     public function register(UserRegisterRequest $request)
     {
         $data = $request->validated();
@@ -45,20 +50,17 @@ class AuthController extends Controller
             'password' => ['required']
         ]);
 
-        if (!Auth::attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json([
                 'message' => 'Email or password are wrong'
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        $token = $user->createToken('token')->plainTextToken;
-
         return response()->json([
             'message' => 'Login successful',
-            'token' => $token
+            'token' => $token,
+            'token_type' => 'bearer',
+            'expire_in' => Auth::factory()->getTTL() * 60
         ], Response::HTTP_OK);
     }
 }
