@@ -43,7 +43,7 @@ class LoginTest extends TestCase
         $response->assertJsonFragment(['message' => 'Login successful']);
     }
 
-    public function test_returns_an_access_token(): void
+    public function test_return_the_token(): void
     {
         $response = $this->postJson($this->url, [
             'email' => $this->email,
@@ -54,7 +54,29 @@ class LoginTest extends TestCase
         $this->assertIsString($response->json('token'));
     }
 
-    public function test_return_an_error_response_if_the_credentials_are_wrong(): void
+    public function test_returns_the_bearer_token_type(): void
+    {
+        $response = $this->postJson($this->url, [
+            'email' => $this->email,
+            'password' => $this->password
+        ]);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertJsonFragment(['token_type' => 'bearer']);
+    }
+
+    public function test_returns_the_expire_in_property(): void
+    {
+        $response = $this->postJson($this->url, [
+            'email' => $this->email,
+            'password' => $this->password
+        ]);
+
+        $response->assertStatus(Response::HTTP_OK);
+        $this->assertIsInt(intval($response->json('expire_in')));
+    }
+
+    public function test_returns_an_error_response_if_the_credentials_are_wrong(): void
     {
         $response = $this->postJson($this->url, [
             'email' => fake()->email(),
