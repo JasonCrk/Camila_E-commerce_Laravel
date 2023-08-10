@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
-
+use App\Http\Resources\UserProfileResource;
 use App\Models\User;
 
 use App\Mail\SuccessfulUserRegistrationEmail;
@@ -62,5 +62,13 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expire_in' => Auth::factory()->getTTL() * 60
         ], Response::HTTP_OK);
+    }
+
+    public function userProfile(Request $request)
+    {
+        return response()->json(
+            new UserProfileResource($request->user()),
+            Response::HTTP_OK
+        );
     }
 }
